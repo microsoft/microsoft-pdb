@@ -7,6 +7,6 @@ toolsets (such as Clang/LLVM) that want to work with Windows or the Visual Studi
 to help the Open Source compilers to get onto the Windows platform.
  
 The majority of content on this repo is presented as actual source files from the VC++ compiler 
-toolset. Source code is the ultimate documentation :-) We hope that you will find it helpful. If you 
+toolset. Source code is the ultimate documentation :-) We hope that you will find it useful and helpful. If you 
 find that you need other information to successfully complete your project, please enter an
-[Issue](https://github.com/microsoft/microsoft-pdb/issues) letting us know what information you need.
+[Issue](https://github.com/microsoft/microsoft-pdb/issues) letting us know what information you need. Thanks :-)
