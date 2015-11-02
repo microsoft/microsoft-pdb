@@ -1,6 +1,6 @@
 #External Resources
 
-This document contains some external reasources with information about the PDB format and related topics.
+This document contains some external resources with information about the PDB format and related topics.
 Note that the following documents are not maintained or guaranteed by Microsoft, they are just provided
 as links for your convenience.
 
