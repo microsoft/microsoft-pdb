@@ -14,3 +14,6 @@ as links for your convenience.
 ##PE Format
 - [Microsoft PE and Coff Specification](https://msdn.microsoft.com/en-us/windows/hardware/gg463119.aspx)
 - [PE Format by corkami](https://code.google.com/p/corkami/wiki/PE)
+
+##Calling Conventions and Name Mangling
+- [Calling conventions for different C++ compilers and operating systems](http://www.agner.org/optimize/calling_conventions.pdf)
