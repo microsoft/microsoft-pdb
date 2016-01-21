@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="Dogfood">
+
+  <PropertyGroup>
+    <NoPDBDelayLoad>true</NoPDBDelayLoad>        
+  </PropertyGroup>
+
+  <!--Import the settings-->
+  <Import Project="$(_NTDRIVE)$(_NTROOT)\vctools\PDB\PDB.settings.targets" />
+
+  <!--Leaf project Properties-->
+  <PropertyGroup>
+    <OutputName>cvdump</OutputName>
+    <TargetType>PROGRAM</TargetType>
+    <ClCallingConvention Condition="'$(BuildArchitecture)' != 'arm' And '$(BuildArchitecture)' != 'arm64'">stdcall</ClCallingConvention>
+    <CrtSecureDeprecate>false</CrtSecureDeprecate>
+    <ClWarningLevel>3</ClWarningLevel>
+    <ClWarningsAsErrors>false</ClWarningsAsErrors>
+    <UserIncludes>..\common;$(LangAPI)\include;$(LangAPI)\shared;..\..\..\include;$(UserIncludes)</UserIncludes>
+    <LinkSubSystem>console</LinkSubSystem>
+    <ClDebugInformationFormat>Enabled</ClDebugInformationFormat>
+    <ClFunctionLevelLinking>true</ClFunctionLevelLinking>
+    <ClUseFullPaths>true</ClUseFullPaths>
+    <UseMsvcrt>false</UseMsvcrt>
+    <EntryPoint>wmain</EntryPoint>
+    <ClAdditionalOptions>$(ClAdditionalOptions) /GF /DPDB_LIBRARY</ClAdditionalOptions>
+    <ClAdditionalOptions Condition="'$(BuildArchitecture)' == 'i386'">$(ClAdditionalOptions) /D_DEFINE_FAILASSERTION_</ClAdditionalOptions>
+  </PropertyGroup>
+
+  <Choose>
+    <When Condition="'$(BuildType)' == 'Retail' or '$(BuildType)' == 'Coverage'">
+      <PropertyGroup>
+        <ClDefines>$(ClDefines);DBG=0;NDEBUG</ClDefines>
+        <ClOptimization>Full</ClOptimization>
+        <ClFavorSizeOrSpeed>Speed</ClFavorSizeOrSpeed>
+      </PropertyGroup>
+    </When>
+    <Otherwise>
+      <PropertyGroup>
+        <ClDefines>$(ClDefines);DBG=1;_DEBUG</ClDefines>
+        <ClOptimization>Disabled</ClOptimization>
+        <ClStackFrameCheck>true</ClStackFrameCheck>
+        <ClUninitializedVariableCheck>true</ClUninitializedVariableCheck>
+        <SmallerTypeCheck>true</SmallerTypeCheck>
+      </PropertyGroup>
+    </Otherwise>
+  </Choose>
+
+  <ItemGroup>
+    <CppCompile Include="cvdump.cpp"/>
+    <CppCompile Include="dumppdb.cpp"/>
+    <CppCompile Include="dumpsym6.cpp"/>
+    <CppCompile Include="dumpsym7.cpp"/>
+    <CppCompile Include="dumptyp6.cpp"/>
+    <CppCompile Include="dumptyp7.cpp"/>
+    <CppCompile Include="output.cpp"/>
+    <CppCompile Include="type6.cpp"/>
+    <CppCompile Include="type7.cpp"/>
+    <CppCompile Include="utils.cpp"/>
+    <CCompile Include="..\..\..\misc\utf8.c"/>
+    <Link Include="$(SdkLibPath)\ole32.lib"/>
+    <Link Include="$(SdkLibPath)\oleaut32.lib"/>
+    <Link Include="$(SdkLibPath)\uuid.lib" />
+    <Link Include="$(SdkLibPath)\rpcrt4.lib" />
+    <Link Include="$(CrtLibPath)\msvcprt$(BuildSuffix).lib" />
+    <Link Include="$(OutputLibPath)mspdb$(VCToolsProdVerSuffix)$(BuildSuffix)-libcmt.lib">
+        <ProjectReference>$(VCToolsRootPath)\PDB\lic\lic.nativeproj</ProjectReference>
+    </Link>
+    <Link Include="$(OutputLibPath)msobj$(VCToolsProdVerSuffix)$(BuildSuffix)-libcmt.lib">
+        <ProjectReference>$(VCToolsRootPath)\PDB\objfile\lic\lic.nativeproj</ProjectReference>
+    </Link>
+    <Link Include="$(OutputLibPath)msdia$(VCToolsProdVerSuffix)$(BuildSuffix)-libcmt.lib">
+        <ProjectReference>$(VCToolsRootPath)\PDB\dia2\lic\lic.nativeproj</ProjectReference>
+    </Link>
+    <Link Condition="'$(BuildArchitecture)' == 'arm' or '$(BuildArchitecture)' == 'arm64'" Include="$(SdkLibPath)\runtimeobject.lib"/>
+  </ItemGroup>
+
+  <PropertyGroup>
+    <RCAdditionalOptions>$(RCAdditionalOptions) -r -i$(LangAPI)/include</RCAdditionalOptions>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <RCResourceFile Include="cvdump.rc"/>
+  </ItemGroup>
+
+  <!-- Import the targets -->
+  <Import Project="$(_NTDRIVE)$(_NTROOT)\vctools\VCTools.targets" />
+</Project>
