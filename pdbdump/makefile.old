@@ -1,0 +1,52 @@
+!if "$(DEBUG)" == ""
+DEBUG = 1
+!endif
+
+inc = -I"$(LANGAPI)\include" -I"$(LANGAPI)\shared" -I..\..\..\include
+CFLAGS = -nologo -c -W3 -Zi -Fd"$(odir)/" -Fp"$(odir)/pdbdump.pch" -D_CRT_SECURE_NO_DEPRECATE -D_SECURE_SCL=0 -GS -Zc:wchar_t-
+
+!if "$(DEBUG)" == "1"
+CFLAGS = $(CFLAGS) -Od -D_DEBUG -MTd -FR$(odir)\ $(inc)
+odir = debug
+!else
+CFLAGS = $(CFLAGS) -O2 -DNDEBUG -MT $(inc)
+odir = release
+!endif
+
+!ifdef  CPU
+!if "$(CPU)" != "x86" && "$(CPU)" != "X86"
+odir = $(odir)_$(CPU)
+!endif
+!endif
+
+MSPDB=mspdbcore.lib
+
+.rc{$(odir)}.res:
+    rc $(inc) -Fo$(odir)/$(<B).res $<
+
+.cpp{$(odir)}.obj::
+    cl $(CFLAGS) -Fo$(odir)/ $<
+
+
+$(odir)/pdbdump.exe : $(odir) $(odir)/pdbdump.obj $(odir)/pdbdump.res $(odir)/utf8.obj
+    link -out:$(odir)/pdbdump.exe -debug -incremental:no $(odir)/pdbdump.obj $(odir)/utf8.obj $(odir)/pdbdump.res $(MSPDB) ole32.lib
+!if "$(DEBUG)" == "1"
+    bscmake -o $(odir)/pdbdump.bsc $(odir)/*.sbr
+!endif
+
+$(odir):
+    -md $(odir) >nul 2>&1
+
+$(odir)/pdbdump.obj : \
+        $(LANGAPI)\include\pdb.h $(LANGAPI)\include\vcver.h  \
+        ..\..\..\include\msf.h $(LANGAPI)\include\cvr.h  \
+        $(LANGAPI)\include\.\..\include\vcver.h  \
+        $(LANGAPI)\include\cvinfo.h
+
+$(odir)/pdbdump.res: \
+        $(LANGAPI)\include\version.h $(LANGAPI)\include\verstamp.h  \
+        $(LANGAPI)\include\common.ver
+
+$(odir)/utf8.obj: \
+        ..\..\..\misc\utf8.c
+            cl $(CFLAGS) -Fo$(odir)/ ..\..\..\misc\utf8.c
