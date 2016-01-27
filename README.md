@@ -29,8 +29,8 @@ Important points:
 •	Mscorpdb.dll is what our linker and compiler uses to create PDB files.
 •	Mscorpdb.dll implements the “stream” abstractions.
 
-Also there is another file that we ship that should allow you to determine whether you have correctly produced an “empty” PDB which contains the minimal encoding to let another tool open and correctly parse that “empty” file.  “Empty” really meaning minimal (just using the words used in our meeting so we can be clear)
-
+Also there is another file that we ship that should allow you to determine whether you have correctly produced an “empty” PDB which contains the minimal encoding to let another tool open and correctly parse that “empty” file.  “Empty” really meaning a properl
+y formated file where the sections contain the correct information to indicate zero records or symbols are present
 A tool that I thought we also ship that would easily verify your “empty” PDB file is dia2dump.exe
 
 So in summary, by using the externally defined function entry points in pdb.h you can call into mscorpdb.dll.
