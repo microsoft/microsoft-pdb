@@ -1,0 +1,5 @@
+#ifdef _X86_
+??0SymTiIter@@QAE@PAUSYMTYPE@@@Z 
+#else
+??0SymTiIter@@QAA@PAUSYMTYPE@@@Z		// no thiscall on non-X86
+#endif
