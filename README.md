@@ -4,8 +4,9 @@ This repo contains information from Microsoft about the PDB (Program Database)
 [Symbol File](https://msdn.microsoft.com/en-us/library/windows/desktop/aa363368(v=vs.85).aspx)
 format.
 
-[WILL NOT currently build. There is a ```cvdump.exe``` till the repo is
-completed.  pdb.h is in the langapi folder]
+_THIS WILL NOT currently build. There is a `cvdump.exe` till the repo is completed.
+`[pdb.h](https://github.com/rdeforest/microsoft-pdb/blob/master/langapi/include/pdb.h)`
+is in the `langapi` folder_
 
 The intent here is to provide code that will show all the binary level formats
 and simple tools that can use the pdb.
@@ -37,14 +38,15 @@ what information you need.
 
 ## Start here
 
-The file pdb.h (on in langapi), provides the API surface for
-```mscorpdb.dll```,
-which we ship with every compiler and toolset.
+- `mscorpdb.dll` is what our linker and compiler uses to create PDB files.
+- `mscorpdb.dll` implements the “stream” abstractions.
 
-Important points:
+The file
+`[pdb.h](https://github.com/rdeforest/microsoft-pdb/blob/master/langapi/include/pdb.h)`
+provides the API surface
+for `mscorpdb.dll`, which we ship with every compiler and toolset.
 
-- ```mscorpdb.dll``` is what our linker and compiler uses to create PDB files.
-- ```mscorpdb.dll``` implements the “stream” abstractions.
+Important points
 
 Also there is another file that we ship that should allow you to determine
 whether you have correctly produced an “empty” PDB which contains the minimal
@@ -52,10 +54,10 @@ encoding to let another tool open and correctly parse that “empty” file.
 “Empty” really meaning a properl y formated file where the sections contain
 the correct information to indicate zero records or symbols are present A tool
 that I thought we also ship that would easily verify your “empty” PDB file is
-```dia2dump.exe```.
+`dia2dump.exe`.
 
 So in summary, by using the externally defined function entry points in
-```pdb.h``` you can call into ```mscorpdb.dll```.
+`pdb.h` you can call into `mscorpdb.dll`.
 
 ## What is a PDB
 
