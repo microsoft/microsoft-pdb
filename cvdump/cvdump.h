@@ -27,7 +27,9 @@
 #include <sys\types.h>
 #include <time.h>
 
+#pragma pack(1)
 #include "cvexefmt.h"
+#pragma pack()
 #include "cvinfo.h"
 #include "output.h"
 
