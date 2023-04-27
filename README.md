@@ -1,3 +1,5 @@
+***Update:*** This repo has moved to archive. Currently we are not planning any new updates nor are we taking PRs.  Please add any new requests related to debugging and PDB format to [Visual Studio Feedback](https://developercommunity.visualstudio.com/home).
+
 # microsoft-pdb
 This repo contains information from Microsoft about the PDB (Program Database) 
 [Symbol File](https://msdn.microsoft.com/en-us/library/windows/desktop/aa363368(v=vs.85).aspx) format.
