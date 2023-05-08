@@ -25,12 +25,12 @@ find that you need other information to successfully complete your project, plea
 [Issue](https://github.com/microsoft/microsoft-pdb/issues) letting us know what information you need.
 
 ##Start here
-The file pdb.h (on in langapi), provides the API surface for mscorpdb.dll, which we ship with every compiler and toolset.
+The file pdb.h (on in langapi), provides the API surface for mspdbcore.dll, which we ship with every compiler and toolset.
 
 Important points:
 
-•	Mscorpdb.dll is what our linker and compiler uses to create PDB files.
-•	Mscorpdb.dll implements the “stream” abstractions.
+•	Mspdbcore.dll is what our linker and compiler uses to create PDB files.
+•	Mspdbcore.dll implements the “stream” abstractions.
 
 Also there is another file that we ship that should allow you to determine whether you have correctly produced an “empty” PDB which contains the minimal encoding to let another tool open and correctly parse that “empty” file.  “Empty” really meaning a properl
 y formated file where the sections contain the correct information to indicate zero records or symbols are present
